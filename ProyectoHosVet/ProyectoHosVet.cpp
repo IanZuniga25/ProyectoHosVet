@@ -1,19 +1,43 @@
-// ProyectoHosVet.cpp : Este archivo contiene la funci贸n "main". La ejecuci贸n del programa comienza y termina ah铆.
-//
-
 #include <iostream>
+#include <sstream>
+#include <vector>
+#include "Doctor.h"
+#include "Cita.h"
+#include "Due駉.h"
+#include "Mascota.h"
+#include "Metodos.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+int main() {
+    Doctor doctor("Dr. Juan P閞ez", "Veterinario");
+
+    string especie = "Perro";
+    string petName = "Fido";
+    int age = 3;
+    Mascota mascota(&especie, &petName, &age);
+
+    string ownerName = "Carlos L髉ez";
+    int ownerID = 12345;
+    Due駉 due駉(&ownerName, &ownerID, &mascota);
+
+    Cita** agenda = new Cita * [NUM_DIAS];
+    for (int i = 0; i < NUM_DIAS; i++) {
+        agenda[i] = new Cita[NUM_HORAS];
+    }
+    inicializarAgenda(agenda);
+
+    int diaCita = 3; 
+    int horaCita = 10;
+    string resultado = asignarCita(&doctor, agenda, diaCita, horaCita, &due駉, &mascota);
+    cout << resultado;
+
+    cout << mostrarAgendaDoctor(agenda);
+
+    for (int i = 0; i < NUM_DIAS; i++) {
+        delete[] agenda[i];
+    }
+    delete[] agenda;
+
+    return 0;
 }
-
-// Ejecutar programa: Ctrl + F5 o men煤 Depurar > Iniciar sin depurar
-// Depurar programa: F5 o men煤 Depurar > Iniciar depuraci贸n
-
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de c贸digo fuente
-//   3. Use la ventana de salida para ver la salida de compilaci贸n y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de c贸digo, o a Proyecto > Agregar elemento existente para agregar archivos de c贸digo existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
